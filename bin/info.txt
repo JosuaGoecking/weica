@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------
+                                  weica v2.0
+                          Weight Control Assistant
+                        implemented by Josua Göcking
+                   https://github.com/JosuaGoecking/weica 
+---------------------------------------------------------------------------

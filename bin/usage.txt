@@ -1,0 +1,46 @@
+usage = weica [-a opt] [-e opt] [-c] [-g opt] [-v opt] [-d opt] [-s] [-i] [-h] [-?] -- program to get your weight under control
+
+where
+	
+        -0      initialize weica. Run this command when first using weica.
+                Running it at a later time will reset the calory dictionary, the user data
+                and the current consumption.
+
+	-a	call add functions. Use option to get the desired function:
+		     - 'consumption' for adding entries to the consumption dictionary
+		     - 'dict' for adding a new entry to the calory dictionary
+		     - 'recipe' for adding a new recipe
+	
+	-e	change (or edit) entries. Use option to get the desired type:
+		     - 'consumption' for changing a specific consumption entry
+		     - 'PAL' for changing the physical activity level (PAL) value
+		     - 'recipe' for changing one or more entries in a recipe
+		     - 'user_data' for changing one or more entries of the user data
+	
+	-c	compute the current calory conumption.
+	
+	-g	plot (or graph) your data. Use option to get the desired data: 
+		     - 'consumption' for plotting the calory consumption of the current year
+		     - 'BMI' for plotting the development of your body mass index of the current year
+		     - 'body_fat' for plotting your body fat percentage development of the current year
+	
+	-v	print (or visualize) your data. Use option to specify what data to print:
+		     - 'cal_demand' for printing out the current calory demand
+		     - 'consumption' for printing the current consumption dictionary
+		     - 'dict' for printing the whole or parts of the calory dictionary
+		     - 'recipe' for printing out a specific recipe
+		     - 'status' for printing out your current status, i.e. your current BMI and body fat percentage
+		     - 'user_data' for printing out your user data
+		   
+	-d	remove (or delete) certain data. Use option to specify what to remove:
+		     - 'consumption' for removing a specified entry from the consumption dictionary
+		     - 'dict' for removing a specified entry from the calory dictionary
+		     - 'recipe' for removing a specified entry from a specified recipe
+
+	-s	save todays or some other days consumption. 
+
+	-i	get information about weica.
+
+	-h	show information about weica and this message.
+	
+	-?	show this message.

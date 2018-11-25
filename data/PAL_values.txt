@@ -1,0 +1,7 @@
+#activity		value	example
+sleeping		0.95	
+inactive		1.2	bedridden
+sedentary		1.4	office job
+moderately_active	1.6	student, cab driver
+vigorousely_active	1.8	vendor
+extremely_active	2.0	athlete
