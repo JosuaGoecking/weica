@@ -117,7 +117,9 @@ or, if you are familiar with Python, by studying the source code.
 Have fun using weica to get control of your weight and don't forget to give a star if you enjoy using weica.
 
 ## To Do
-It is planned to update weica such that Bash scripts won't be necessary anymore for running weica. Also importing weica for every command instead of importing it once not only costs more computation time but also should not be necessary.
+Unfortunately some of the features of weica are only supported for male users yet. This includes the computation of the body fat percentage. It is planned to have this resolved asap.
+
+In a broader scope it is planned to update weica such that Bash scripts won't be necessary anymore for running weica. Also importing weica for every command instead of importing it once not only costs more computation time but also should not be necessary.
 The idea is to run weica such that it opens its own shell at which commands can be given (like e.g. `add consumption`), which then will read in the corresponding input without leaving the program.
 
 Further it would be nice to change the implementation of the calory dictionary, since for larger dictionaries this will become more and more confusing. Categorizing each food should allow for a clearer structure. 
