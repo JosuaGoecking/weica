@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash
+
+###############################################################################
+#                                                                             #
+#    Program name:   construct_recipe.sh                                      #
+#    Purpose:        Read in the recipe data and commit it to the Python      #
+#                    script for processing.                                   #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 echo "Type in Name of the recipe."

@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+
+###############################################################################
+#                                                                             #
+#    Program name:   plot_body_fat.py                                         #
+#    Purpose:        Process data from the shell script and plot the body     #
+#                    fat percentage.                                          #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import sys
 
 path=sys.argv[1]

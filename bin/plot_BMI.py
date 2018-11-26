@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+
+###############################################################################
+#                                                                             #
+#    Program name:   plot_BMI.py                                              #
+#    Purpose:        Process data from the shell script and plot the BMI.     #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import sys
 
 path=sys.argv[1]

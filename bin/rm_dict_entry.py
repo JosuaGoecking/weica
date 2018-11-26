@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+
+###############################################################################
+#                                                                             #
+#    Program name:   rm_dict_entry.py                                         #
+#    Purpose:        Process data from the shell script and remove the        #
+#                    corresponding dictionary entry.                          #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import sys
 
 path=sys.argv[1]

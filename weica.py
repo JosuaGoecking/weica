@@ -1,3 +1,13 @@
+###############################################################################
+#									      #
+#    Program name:   weica.py       				              #
+#    Purpose:        Compute and keep track of your daily calory intake	      #
+#                     							      #
+#    Author:         Josua Goecking					      #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import numpy as np
 import matplotlib.pyplot as mp
 import datetime
@@ -7,21 +17,24 @@ import json
 class consumption:
 #private
     def __init__(self, *args):
-        if len(args)!=0 and type(args[0])==dict:
+        if len(args)!=0 and type(args[0])==dict: #when run for the first time initialize with user data dict
             self.__create_user_data(args[0])
             self.__initialize_consumption()
             self.__initialize_dict()
+	# Read in the calory dict, user data and help dictionary
         self.__d_cal, self.__d_amount = self.__create_dict()
         self.__d_user = self.__read_user_data()
         self.__d_help = self.__get_help()
         self.__get_consumption()
         self.__sum=0
+	# Bool to allow silencing some output
         self.__quiet=False
         if len(args)!=0 and args[0]=="q":
             self.__quiet=True
         if not self.__quiet:
             self.__print_banner()
-        
+       
+        # Print the banner of weica at startup
     def __print_banner(self):
         print("---------------------------------------------------------------------------")
         print("                                  weica v2.0")
@@ -38,30 +51,32 @@ class consumption:
             print("In celebration of your special day, why don't you take this one off?")
             print("Don't worry, I won't tell anyone ;).")
             
+	# Call the helper function to print information about the respective function
     def __get_help(self):
         with open('data/help.json') as f:
             d_help=json.load(f)
         return d_help
             
+	# Get todays date in the form YYYYMMDD
     def __get_date(self):
         now = str(datetime.datetime.now())
         s=now[:4]+now[5:7]+now[8:10]
         return s
 
+        # Convert the date time in decimal years  
     def __date2time(self, date):
         return float(date[:4])+ float(date[4:6])/12 + float(date[6:8])/365
         
+        # Read file and return its columns
     def __read_file(self, file):
-        # Open file
-        f = open(file, "r")
-        # Read and ignore header lines
-        header1 = f.readline()
-        # Loop over lines and extract variables of interest
-        for line in f:
-            line = line.strip()
-            columns = line.split()
+        with open(file, "r") as f:
+            header1 = f.readline()
+            for line in f:
+                line = line.strip()
+                columns = line.split()
         return columns
     
+        # Save the user data dictionary and create a measures file
     def __create_user_data(self, d):
         with open('data/user_data.txt', 'wb') as f:
             pickle.dump(d, f)
@@ -71,18 +86,21 @@ class consumption:
                 fm.write(self.__get_date()+ "\t\t" + str(self.__date2time(self.__get_date())) + "\t\t"+ str(d["weight"]) + 
                          "\t\t" + str(d["abdomen"])+"\t\t" + str(d["neck"])+"\n")
     
+        # Read in the user data from the file
     def __read_user_data(self):
         d_user={}
         with open("data/user_data.txt", "rb") as f:
             d_user=pickle.load(f)
         return d_user
         
+        # Compute the age of the user (not used so far)
     def __get_age(self):
         d=self.__d_user
         bday=self.__date2time(d["birthday"])
         today=self.__date2time(self.__get_date())
         return int(today-bday)
         
+        # Read in the specified recipe
     def __get_recipe(self, name):
         try:
             d_rec={}
@@ -96,11 +114,13 @@ class consumption:
             print("ERROR: data/recipes/"+name+".txt does not exist.")
             return -1
         
+        # Initialize the consumption by creating the temporary consumption file
     def __initialize_consumption(self):
         self.__consumption={}
         with open('data/tmp_consumption.txt', 'wb') as f:
             pickle.dump(self.__consumption, f)
-            
+        
+        # Read in the consumption from the temporary consumption file 
     def __get_consumption(self):
         try:    
             with open('data/tmp_consumption.txt', 'rb') as f:
@@ -108,10 +128,12 @@ class consumption:
         except FileNotFoundError:
             self.__initialize_consumption()
             
+        # Save consumption to temporary consumption file
     def __save_temp_consumption(self):
         with open('data/tmp_consumption.txt', 'wb') as f:
                 pickle.dump(self.__consumption, f)
-                
+        
+        # Colorize the calory output depending on where in the calory range it lies
     def __get_color(self, kcal):
         lot, upt = self.__create_demand()
         range=50
@@ -125,7 +147,8 @@ class consumption:
             return "\033[0;33m"
         else:
             return "\033[1;31m"
-
+        
+        # Initialize the calory dict by creating the cal_dict.txt file
     def __initialize_dict(self):
         cal_dict = {}
         amount_dict = {}
@@ -133,27 +156,32 @@ class consumption:
             pickle.dump(cal_dict, f)
             pickle.dump(amount_dict, f)
 
+        # Read in the calory dictionary and return it
     def __create_dict(self):
         with open("data/cal_dict.txt", "rb") as f:
             cal_dict = pickle.load(f)
             amount_dict = pickle.load(f)
         return cal_dict, amount_dict
 
+        # Print the calory dictionary
     def __print_dictionary(self):
         print('%-30s %10s %20s' % ('', 'kcal', 'amount'))
         for key in self.__d_cal:
             print('%-30s %10s %20s' % (key, str(self.__d_cal[key]), self.__d_amount[key]))
             
+        # Compute the calory demand using the Harris Benedict formula
     def __get_Harris_Benedict(self):
         if self.__d_user["gender"]=="male":
             return 66.47+(13.7*self.__d_user["weight"])+(5*self.__d_user["height"])-(6.8*self.__get_age())
         elif self.__d_user["gender"]=="female":
             return 655.1+(9.6*self.__d_user["weight"])+(1.8*self.__d_user["height"])-(4.7*self.__get_age())
-            
+        
+        # Get the calory demand, depending if from file or formula
     def __create_demand(self):
         d=self.__d_user
         lot, upt = 0, 0
         if d["cal_demand"]=="file":
+            # Specify position depending on mode the respective mode
             if d["mode"]=="lose":   
                 i=1
                 j=2
@@ -165,20 +193,22 @@ class consumption:
                 j=6
             else:
                 print("ERROR: Unknown mode.")
-            f = open("data/cal_demand.txt", "r")
-            header1 = f.readline()
-            low_threshold={}
-            upper_threshold={}
-            for line in f:
-                line = line.strip()
-                columns = line.split()
-                weight = int(columns[0])
-                low_demand = float(columns[i])
-                up_demand = float(columns[j])
-                low_threshold[weight]=low_demand
-                upper_threshold[weight]=up_demand
-            lot=low_threshold[d["weight"]]
-            upt=upper_threshold[d["weight"]]
+            # Read the cal_demand file and get the calory range
+            with open("data/cal_demand.txt", "r") as f:
+                header1 = f.readline()
+                low_threshold={}
+                upper_threshold={}
+                for line in f:
+                    line = line.strip()
+                    columns = line.split()
+                    weight = int(columns[0])
+                    low_demand = float(columns[i])
+                    up_demand = float(columns[j])
+                    low_threshold[weight]=low_demand
+                    upper_threshold[weight]=up_demand
+                lot=low_threshold[d["weight"]]
+                upt=upper_threshold[d["weight"]]
+            # Get the cal_demand from the formula and set the range according to the respective mode
         elif d["cal_demand"]=="formula":
             cal_demand=int(d["PAL"]*self.__get_Harris_Benedict())
             if d["mode"]=="lose":
@@ -193,7 +223,8 @@ class consumption:
             else:
                 print("ERROR: Unknown mode.")
         return lot, upt
-            
+        
+        # Every seven days save the measures to the measures file
     def __save_measures(self, date):
         today = self.__date2time(date)
         entry=self.__read_file('data/measures.txt')[0]
@@ -208,6 +239,7 @@ class consumption:
 
 #public
             
+        # Compute the BMI from the user data
     def BMI(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['BMI'])
@@ -219,7 +251,8 @@ class consumption:
             return weight/pow(height, 2)
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one argument (help) or two (weight and height).")
-    
+        
+        # Compute the body fat percentage from the user data
     def body_fat_percentage(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['body_fat_percentage'])
@@ -231,6 +264,7 @@ class consumption:
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one argument (help) or three (height, abdomen and neck).")
     
+        # Print the user data
     def print_user_data(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_user_data'])
@@ -239,13 +273,15 @@ class consumption:
             for key in self.__d_user:
                 print('%-10s %10s' % (key, self.__d_user[key]))
                 
+        # Print the status, i.e. BMI and body fat percentage
     def print_status(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_status'])
         print('%-20s %10s' % ('BMI', "{0:.2f}".format(self.BMI(self.__d_user["weight"], self.__d_user["height"]))))
         print('%-20s %10s' % ('Body fat percentage', "{0:.2f}".format(self.body_fat_percentage(self.__d_user["height"],
         self.__d_user["abdomen"], self.__d_user["neck"]))+"%"))
-    
+   
+        # Change entries of the user data
     def change_user_data(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['change_user_data'])
@@ -259,6 +295,7 @@ class consumption:
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one argument (help) or two (key and value)")
     
+        # Print the calory dictionary with the option to specify the keys
     def print_dict(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_dict'])
@@ -271,6 +308,7 @@ class consumption:
             for arg in args:
                 print('%-30s %15s %20s' % (arg, str(self.__d_cal[arg]), self.__d_amount[arg]))
     
+        # Add entry to the calory dictionary
     def add_dict_entry(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['add_dict_entry'])
@@ -293,6 +331,7 @@ class consumption:
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one argument (help) or three (food, kcal and amount)")
         
+        # Remove entry from the calory dictionary
     def rm_dict_entry(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['rm_dict_entry'])
@@ -312,6 +351,7 @@ class consumption:
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one help or an entry as argument.")
             
+        # Add a recipe as a dictionary of given structure
     def add_recipe(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['add_recipe'])
@@ -322,6 +362,7 @@ class consumption:
         else:
             print("ERROR: Incorrect amount of arguments. Either choose one (help) or two (name and recipe dictionary)")
     
+        # Change an entry in the recipe
     def change_recipe(self, *args):
         change=False
         d_rec={}
@@ -345,6 +386,7 @@ class consumption:
             with open("data/recipes/"+args[0]+".txt", "wb") as f:
                 pickle.dump(d_rec, f)
                 
+        # Remove an entry in the recipe
     def rm_recipe_entry(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['rm_recipe_entry'])
@@ -362,7 +404,8 @@ class consumption:
                     d["meta"][key]=d_rec["meta"][key]
             with open('data/recipes/'+name+'.txt', 'wb') as f:
                 pickle.dump(d, f)
-                
+        
+        # Print specified recipe
     def print_recipe(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_recipe'])
@@ -380,6 +423,7 @@ class consumption:
                 self.compute_consumption(d)
                 print("{0:.2f}".format(self.__sum/d_rec["meta"]["Portionen"])+" kcal/Portion.")
                 
+        # Add the recipe contents to the consumption dictionary
     def add_recipe_to_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['add_recipe_to_consumption'])
@@ -405,6 +449,7 @@ class consumption:
                         li.append(key)
             self.add_consumption(li)
                         
+        # Print the current consumption
     def print_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_consumption'])
@@ -412,7 +457,8 @@ class consumption:
             for key in self.__consumption:
                 if self.__consumption[key]!=0:
                     print('%-10s %25s' % ("{0:.2f}".format(self.__consumption[key]), key))
-    
+        
+        # Add entries to the consumption
     def add_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['add_consumption'])
@@ -429,6 +475,7 @@ class consumption:
             self.__save_temp_consumption()
             self.compute_consumption()
         
+        # Remove an entry from the consumption dictionary
     def rm_consumption_entry(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['rm_consumption_entry'])
@@ -444,6 +491,7 @@ class consumption:
             self.compute_consumption()
         self.__save_temp_consumption()
         
+        # Change an entry from the consumption dictionary
     def change_consumption_entry(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['change_consumption_entry'])
@@ -464,6 +512,7 @@ class consumption:
                 self.compute_consumption()
             self.__save_temp_consumption()
     
+        # Compute the current consumption and pritn it together with the current calory range
     def compute_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['compute_consumption'])
@@ -484,6 +533,7 @@ class consumption:
                 self.print_cal_demand()
             self.__sum=sum
         
+        # Save the current consumption
     def save_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['save_consumption'])
@@ -499,6 +549,7 @@ class consumption:
                 f2.write(date + "\t" + str(self.__date2time(date)) + "\t" + str(self.__sum) + "\n")
             self.__save_measures(date)
         
+        # Print the current calory demand
     def print_cal_demand(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['print_cal_demand'])    
@@ -506,6 +557,7 @@ class consumption:
             lot, upt = self.__create_demand()
             print("Current calory range: [" + str(lot) + ", " + str(upt) + "] kcal")
         
+        # Plot the consumption of the current year
     def plot_consumption(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['plot_consumption']) 
@@ -528,6 +580,7 @@ class consumption:
             if show:
                 mp.show()
     
+        # Plot the BMI development of the current year
     def plot_BMI(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['plot_BMI']) 
@@ -556,6 +609,7 @@ class consumption:
             if show:
                 mp.show()
         
+        # Plot the body fat percentage development of the current year
     def plot_body_fat(self, *args):
         if len(args)==1 and args[0]=="help":
             print(self.__d_help['plot_body_fat']) 

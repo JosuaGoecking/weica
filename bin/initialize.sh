@@ -1,5 +1,16 @@
 #!/usr/local/bin/bash
 
+###############################################################################
+#                                                                             #
+#    Program name:   initialize.sh                                            #
+#    Purpose:        Read in the user data and commit it to the Python        #
+#                    script for initializing weica.                           #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 echo "This script will initialize your weica instance. You should run this when first using weica."

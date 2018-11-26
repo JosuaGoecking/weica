@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash                                                                                                                                                              
+
+###############################################################################
+#                                                                             #
+#    Program name:   change.sh                                                #
+#    Purpose:        Call the respective shell scripts to change certain      #
+#                    data.                                                    #
+#									      #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICA_EXE
 
 if [ -z $1 ]

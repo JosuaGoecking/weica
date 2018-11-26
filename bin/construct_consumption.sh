@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash    
+
+###############################################################################
+#                                                                             #
+#    Program name:   construct_consumption.sh                                 #
+#    Purpose:        Read in the consumption and commit it to the Python      #
+#                    script for processing.                                   #
+#                                                                             # 
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 del=0

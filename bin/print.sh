@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash                                                                                                                                                              
+
+###############################################################################
+#                                                                             #
+#    Program name:   print.sh                                                 #
+#    Purpose:        Get data about what to print and put commit it to the    #
+#                    Python script for processing.                            #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 if [ -z $1 ]

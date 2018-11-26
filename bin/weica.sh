@@ -1,3 +1,16 @@
+
+###############################################################################
+#                                                                             #
+#    Program name:   weica.sh                                                 #
+#    Purpose:        Parse the given options and run the corresponding        #
+#                    shell scripts, which will then in turn run the           #
+#                    corresponding Python scripts.                            # 
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 weica () {
 
 if [ -z $1 ]

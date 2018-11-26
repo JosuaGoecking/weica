@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+
+###############################################################################
+#                                                                             #
+#    Program name:   print_recipe.py                                          #
+#    Purpose:        Process data from the shell script and print the         #
+#                    corresponding recipe.                                    #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import sys
 
 path=sys.argv[1]

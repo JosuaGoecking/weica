@@ -1,4 +1,17 @@
 #!/usr/local/bin/bash                                                                                                                                                             
+
+###############################################################################
+#                                                                             #
+#    Program name:   change_PAL_value.sh                                      #
+#    Purpose:        Get the hours of work, sleep and free time each with     #
+#                    corresponding intensity and commit it to the Python      #
+#		     script for processing.                  		      #
+#									      #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 echo "How many hours do you sleep per day?"

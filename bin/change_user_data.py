@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
+
+###############################################################################
+#                                                                             #
+#    Program name:   change_user_data.py                                      #
+#    Purpose:        Process the data from the shell script and change the    #
+#                    corresponding user data entries.                         #
+#									      #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 import sys
 
 path=sys.argv[1]

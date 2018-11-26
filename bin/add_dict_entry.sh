@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash
+
+###############################################################################
+#                                                                             #
+#    Program name:   add_dict_entry.sh                                        #
+#    Purpose:        Get new dict entry and commit it to the python script    #
+#		     for processing.                                          #
+#									      #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 echo "Which entry do you want to add to the calory dictionary?"

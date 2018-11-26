@@ -1,4 +1,15 @@
 #!/usr/local/bin/bash                                                                                                                                                              
+
+###############################################################################
+#                                                                             #
+#    Program name:   add.sh                                                   #
+#    Purpose:        Call the respective scripts for adding input             #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICA_EXE
 
 if [ -z $1 ]

@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash                                                                                                                                                              
+
+###############################################################################
+#                                                                             #
+#    Program name:   change_recipe.sh                                         #
+#    Purpose:        Get the wanted changes in the recipe and commit them     #
+#                    to the Python script for processing.                     #
+#									      #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 echo "Type in the name of the recipe you want to change."

@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash
+
+###############################################################################
+#                                                                             #
+#    Program name:   plot.sh                                                  #
+#    Purpose:        Get data and call the corresponding plotting Python      #
+#                    scripts.                                                 #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 if [ -z $1 ]

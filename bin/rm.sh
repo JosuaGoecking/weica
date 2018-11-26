@@ -1,4 +1,16 @@
 #!/usr/local/bin/bash                                                                                                                                                              
+
+###############################################################################
+#                                                                             #
+#    Program name:   rm.sh                                                    #
+#    Purpose:        Get wanted entries to remove and commit it to the        #
+#                    corresponding Python scripts.                            #
+#                                                                             #
+#    Author:         Josua Goecking                                           #
+#    GitHub:         https://github.com/JosuaGoecking/weica                   #
+#                                                                             #
+###############################################################################
+
 cd $WEICADIR
 
 if [ -z $1 ]
