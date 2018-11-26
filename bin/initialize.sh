@@ -22,6 +22,10 @@ if [ "$answer" != "yes" ]; then
     exit 1
 fi
 
+if [ ! -d "$WEICADIR/data/recipes" ]; then
+    mkdir $WEICADIR/data/recipes
+fi
+
 pars=("birthday" "gender" "weight" "height" "abdomen" "neck" "mode" "cal_demand")
 desc=("[YYYYMMDD]" "[male/female]" "[kg]" "[cm]" "[cm]" "[cm]" "[lose/keep/gain]" "[formula/file]")
 
