@@ -25,6 +25,9 @@ fi
 if [ ! -d "$WEICADIR/data/recipes" ]; then
     mkdir $WEICADIR/data/recipes
 fi
+if [ ! -d "$WEICADIR/plots" ]; then
+    mkdir $WEICADIR/plots
+fi
 
 pars=("birthday" "gender" "weight" "height" "abdomen" "neck" "mode" "cal_demand")
 desc=("[YYYYMMDD]" "[male/female]" "[kg]" "[cm]" "[cm]" "[cm]" "[lose/keep/gain]" "[formula/file]")
