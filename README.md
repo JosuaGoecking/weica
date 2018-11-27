@@ -3,6 +3,12 @@ The **WEI**ght **C**ontrol **A**ssistant (weica) is a program for computing and 
 
 ## Pre-requisites
 For the program to run successfully with all its features you need at least Python 3 and Bash 4. It is also possible to run this program using only Python in the Python Shell, however the simplifying features for putting in the data are written in Bash and can only be run with Bash 4 installed. 
+You can check the Bash version you're using by typing 
+```
+$ echo $BASH_VERSION
+```
+into your Unix Shell.
+
 Hopefully, in future versions of this program the dependency on Bash will be revoked.
 The shell scripts in the bin folder were tested on a machine where Bash 4 is installed in the `/usr/local/bin` folder, which is why the shebang (first line in the skript, which starts with `#!`) has been set to this folder. Depending on where your Bash 4 version is installed you probably need to change this line.
 You can to this by running the following command in your Bash shell:
@@ -10,6 +16,18 @@ You can to this by running the following command in your Bash shell:
 $ sed -i '1 s/^.*$/#!\/path\/to\/bash/' /path/to/weica/bin/folder/*.sh 
 ```
 Note that you need to escape the slash characters in the sed command with a backslash. Best practise is to test this command first without the `-i` flag first and check the output if it does what it is supposed to do.
+
+Furthermore, depending on how you installed Python some of the used packages might not be pre-installed. Therefore, you might need to install some of the following modules: numpy, matplotlib, datetime, pickle, json.
+You can check if those modules are already installed in your Python by importing them in the Python shell:
+```
+$ python3
+>>> import <module>
+```
+If no error is thrown, the module is already installed. Otherwise you can install it by typing
+```
+$ pip3 install <module-name>
+```
+into your Unix shell.
 
 ## Installation
 After you have updated the scripts to the settings on your machine it is suggested to add the following lines to your `~/.bashrc` or `~/.bash_profile` file:
@@ -119,6 +137,8 @@ Have fun using weica to get control of your weight and don't forget to give a st
 ## To Do
 Unfortunately some of the features of weica are only supported for male users yet. This includes the computation of the body fat percentage. It is planned to have this resolved asap.
 
+Although most of the program is written implemented in English, there is still some german vocabulary occuring for the recipes. If you are not familiar with the german language, it should for now suffice to know that "Für n Portion(en)" translates to "For n portion(s)" and "Zutaten" to "ingredients" as well as "Zubereitung" to "preparation".
+ 
 In a broader scope it is planned to update weica such that Bash scripts won't be necessary anymore for running weica. Also importing weica for every command instead of importing it once not only costs more computation time but also should not be necessary.
 The idea is to run weica such that it opens its own shell at which commands can be given (like e.g. `add consumption`), which then will read in the corresponding input without leaving the program.
 
