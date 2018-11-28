@@ -93,7 +93,7 @@ class consumption:
             d_user=pickle.load(f)
         return d_user
         
-        # Compute the age of the user (not used so far)
+        # Compute the age of the user
     def __get_age(self):
         d=self.__d_user
         bday=self.__date2time(d["birthday"])
