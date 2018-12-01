@@ -1,9 +1,9 @@
 ###############################################################################
-#									      #
-#    Program name:   weica.py       				              #
-#    Purpose:        Compute and keep track of your daily calory intake	      #
-#                     							      #
-#    Author:         Josua Goecking					      #
+#									                                          #
+#    Program name:   weica.py       				                          #
+#    Purpose:        Compute and keep track of your daily calory intake.	  #
+#                     							                              #
+#    Author:         Josua Goecking					                          #
 #    GitHub:         https://github.com/JosuaGoecking/weica                   #
 #                                                                             #
 ###############################################################################
